@@ -1,5 +1,5 @@
 <template>
-  <div>{{mag}}
+  <div>{{msg}}
   <h1>{{obj.name}}</h1>
   <h1>{{obj.age}}</h1>
   <h1>{{obj.age>=18?'上网去':'回家'}}</h1>
