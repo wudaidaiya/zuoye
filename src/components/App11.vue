@@ -3,6 +3,7 @@
     <!-- 无id时, 可以使用index(反正也是就地更新) -->
     <div
       v-for="(item, index) in arr"
+      style="display: inline-block"
       :key="index"
     >
       <input type="checkbox" v-model="checkNumArr" :value="item" />
