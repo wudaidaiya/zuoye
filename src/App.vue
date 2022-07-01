@@ -1,47 +1,41 @@
 <template>
-    <div>
-        <ul>
-            <li :class="{'active': index === curr}" v-for="(item,index) in navs" :key="index" 												@click="changeFn(index)">大学起点</li>
-        </ul>
-    </div>
+  <div>
+    <h1>国内粉丝量{{ fen | guo }}</h1>
+    <h1>国外粉丝量{{ fen | guo1 }}</h1>
+    <h1>时间{{ shi | jian }}</h1>
+    <h1>时间{{ shi | jian1 }}</h1>
+  </div>
 </template>
 
 <script>
+import moment from "moment"
+
 export default {
-  data() {
-        return {
-            navs: ['大学起点', '高中起点', '初中起点', '小学起点'],
-            curr: 0
-        };
-    },
-    methods: {
-        changeFn(index) {
-            this.curr = index;
-        }
-    }
+data(){
+  return{
+    fen:1876986,
+    shi:1636450540055,
+  }
+},
+filters:{
+  guo(val){
+    return val/10000 + ' 万'
+  },
+  guo1(val){
+    return val/1000 + ' 千'
+  },
+  jian(val){
+     return moment(val).format('YYYY-MM-DD');
+  },
+   jian1(val){
+     return moment(val).format('YYYY/MM/DD');
+  }
+
+
+}
 }
 </script>
 
-<style scoped>
-  ul {
-    list-style: none;
-    border-radius: 10px;
-    width: 400px;
-    overflow: hidden;
-    padding: 0;
-  }
-  ul li {
-    float: left;
-    width: 100px;
-    height: 40px;
-    background-color: #ccc;
-    color: #fff;
-    text-align: center;
-    line-height: 40px;
-    cursor: pointer;
-  }
-  li.active {
-    background-color: blue;
-  }
-</style>
+<style>
 
+</style>
