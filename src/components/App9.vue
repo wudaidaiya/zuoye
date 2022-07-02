@@ -1,167 +1,173 @@
 <template>
-  <div id="app">
-    <div class="container">
-      <!-- 顶部框模块 -->
-      <div class="form-group">
-        <div class="input-group">
-          <h4>品牌管理</h4>
-        </div>
+  <div class="wrap">
+    <div class="nav_left" id="navLeft">
+      <div class="nav_content">
+        <span
+          v-for="item in arr"
+          :key="item.first_id"
+          @click="xian(item.first_id)"
+          :class="{ active: (item.first_id === curr) }"
+          >{{ item.first_name }}</span
+        >
       </div>
-
-      <!-- 数据表格 -->
-      <table class="table table-bordered table-hover mt-2">
-        <thead>
-          <tr>
-            <th>编号</th>
-            <th>资产名称</th>
-            <th>价格</th>
-            <th>创建时间</th>
-            <th>操作</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="item in list" :key="item.id">
-            <td>{{ item.id }}</td>
-            <td>{{ item.name || "站务名称" }}</td>
-
-            <!-- 如果价格超过100，就有red这个类 -->
-            <td :class="{ red: item.price > 100 }">{{ item.price }}</td>
-            <td>{{ item.time }}</td>
-            <td><a href="#" @click.prevent="del(item.id)">删除</a></td>
-          </tr>
-          <tr style="background-color: #EEE">
-              <td>统计:</td>
-              <td colspan="2">总价钱为:{{all}}</td>
-              <td colspan="2">平均价: {{svg}}</td>
-          </tr>
-        </tbody>
-        <!-- 
-        <tfoot >
-          <tr>
-            <td colspan="5" style="text-align: center">暂无数据</td>
-          </tr>
-        </tfoot>
-            -->
-      </table>
-
-      <!-- 添加资产 -->
-      <form class="form-inline" style="display: flex">
-        <div class="form-group">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="资产名称"
-              v-model.trim="name"
-            />
-          </div>
-        </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <div class="form-group">
-          <div class="input-group">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="价格"
-              v-model="price"
-            />
-          </div>
-        </div>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <!-- 阻止表单提交 -->
-        <button class="btn btn-primary" @click.prevent="addFn">添加资产</button>
-      </form>
+    </div>
+    <div class="down">
+      <i class="iconfont icon-xiajiantoubeifen gray"></i>
     </div>
   </div>
 </template>
 
 <script>
-// 1. 明确需求
-// 2. 标签+样式+默认数据
-// 3. 下载bootstrap, main.js引入bootstrap.css
-// 4. 把list数组 - 铺设表格
-// 5. 修改价格颜色
-
-// 1. 新增zichan
-// 2. 点击事件绑定
-// 3. 给表 单绑定变量
-// 4. 非空判断
-//
-
-
 export default {
   data() {
     return {
-      list:JSON.parse(localStorage.getItem('list'))||[],
-      // list: [
-      //   { id: 100, price: 199, time: new Date("2010-08-12") },
-      //   { id: 101, name: "裤子", price: 34, time: new Date("2013-09-01") },
-      //   { id: 102, name: "鞋", price: 25.4, time: new Date("2018-11-22") },
-      //   { id: 103, name: "头发", price: 19900, time: new Date("2020-12-12") },
-      // ],
-      name: "",
-      price: 0,
+      arr: [
+        {
+          first_id: "0",
+          first_name: "热门",
+        },
+        {
+          first_id: "621",
+          first_name: "\u5496\u5561",
+        },
+        {
+          first_id: "627",
+          first_name: "\u996e\u98df",
+        },
+        {
+          first_id: "279",
+          first_name: "\u7537\u88c5",
+        },
+        {
+          first_id: "294",
+          first_name: "\u5973\u88c5",
+        },
+        {
+          first_id: "122",
+          first_name: "\u773c\u955c",
+        },
+        {
+          first_id: "339",
+          first_name: "\u5185\u8863\u914d\u9970",
+        },
+        {
+          first_id: "391",
+          first_name: "\u6bcd\u5a74",
+        },
+        {
+          first_id: "35",
+          first_name: "\u978b\u9774",
+        },
+        {
+          first_id: "39",
+          first_name: "\u8fd0\u52a8",
+        },
+        {
+          first_id: "153",
+          first_name: "\u7bb1\u5305",
+        },
+        {
+          first_id: "119",
+          first_name: "\u7f8e\u5986\u4e2a\u62a4",
+        },
+        {
+          first_id: "355",
+          first_name: "\u5bb6\u7eba",
+        },
+        {
+          first_id: "51",
+          first_name: "\u9910\u53a8",
+        },
+        {
+          first_id: "334",
+          first_name: "\u7535\u5668",
+        },
+        {
+          first_id: "369",
+          first_name: "\u5bb6\u88c5",
+        },
+        {
+          first_id: "10",
+          first_name: "\u5bb6\u5177",
+        },
+        {
+          first_id: "223",
+          first_name: "\u6570\u7801",
+        },
+        {
+          first_id: "429",
+          first_name: "\u6c7d\u914d",
+        },
+        {
+          first_id: "546",
+          first_name: "\u5065\u5eb7\u4fdd\u5065",
+        },
+        {
+          first_id: "433",
+          first_name: "\u5b9a\u5236",
+        },
+      ],
+      curr: 0,
     };
   },
   methods: {
-    addFn() {
-      // 新增数据
-      // 非空判断
-      if (this.name == "" || this.price == 0) {
-        return alert("Please enter");
-      }
-      const id = this.list[this.list.length - 1]
-        ? this.list[this.list.length - 1].id + 1
-        : 100;
-      this.list.push({
-        // id 怎么处理
-        // 取数组的最后一个对象里的id
-        // 在加1
-        // id: id,
-        id,
-        name: this.name,
-        price: this.price,
-        time: new Date(),
-      });
-      this.name = "";
-      this.price = 0;
+    xian(index) {
+      this.curr = index;
     },
-    del(id) {
-      // const index = this.list.findIndex((ele) => {
-      //   return id == ele.id; // 传递过来的id === ele.id
-      // });
-      const index = this.list.findIndex((ele) => id == ele.id);
-      console.log(index);
-      this.list.splice(index, 1);
-    },
-    // 删除
-    // 绑定点击事件
-    // 事件 接收这条数据对应的id
-    // 根据id找到对应的数据
-    // findIndex ==> 对应的数据的索引号
-    // 数组删除对应的数据 ==> splice(索引号，删除的个数)
   },
-  computed:{
-    all(){
-      return this.list.reduce((a,b) => a+= +b.price,0)
-    },
-    svg(){
-      return (this.all/this.list.length).toFixed(2)
-    }
-  },
-  watch:{
-    list:{
-      handler(){
-        localStorage.setItem("list",JSON.stringify(this.list))
-      },
-      deep:true
-    }
-  }
 };
 </script>
 
-<style >
-.red {
-  color: red;
+<style>
+.wrap {
+  width: 100%;
+  display: flex;
+  margin: 0.2rem 0 0 0;
+  position: relative;
+}
+
+/*左侧的导航样式*/
+.nav_left {
+  width: 21.1875rem;
+  overflow: scroll;
+}
+
+.nav_left::-webkit-scrollbar {
+  display: none;
+}
+
+.nav_content {
+  white-space: nowrap;
+  padding: 0 0.7rem;
+}
+
+.nav_content span {
+  display: inline-block;
+  padding: 0.4rem 0.6rem;
+  font-size: 0.875rem;
+}
+
+.nav_content .active {
+  border-bottom: 2px solid #7f4395;
+  color: #7f4395;
+}
+
+.nav_left,
+.down {
+  float: left;
+}
+
+/*右侧导航部分*/
+.down {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.gray {
+  color: gray;
+  display: inline-block;
+  vertical-align: middle;
 }
 </style>

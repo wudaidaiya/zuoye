@@ -1,14 +1,9 @@
 <template>
-  <div>
-    <span>全选:</span>
-    <input type="checkbox" v-model="all" />
-    <button @click='btn'>反选</button>
+  <div id="app">
     <ul>
-      <li v-for="(item,index) in arr" :key='index'>
-        <input type="checkbox" v-model="item.c" />
-        <span>{{item.name}}</span>
-      </li>
+      <li v-for="item in Arr" :key="item">{{ item }}</li>
     </ul>
+    <button @click="btn">走一走</button>
   </div>
 </template>
 
@@ -16,40 +11,14 @@
 export default {
   data() {
     return {
-      arr: [
-        {
-          name: "猪八戒",
-          c: false,
-        },
-        {
-          name: "孙悟空",
-          c: false,
-        },
-        {
-          name: "唐僧",
-          c: false,
-        },
-        {
-          name: "白龙马",
-          c: false,
-        },
-      ],
+      Arr: ["帅哥", "美女", "程序猿"],
     };
   },
-  methods:{
-    btn(){
-      this.arr.forEach(item => item.c = !item.c)
-    }
+  methods: {
+    btn() {
+      this.Arr.push(this.Arr[0]);
+      this.Arr.shift();
+    },
   },
-  computed:{
-    all:{
-      set(val){
-      this.arr.forEach(item => item.c = val)
-      },
-      get(){
-      return this.arr.every(item => item.c)
-      }
-    }
-  }
 };
 </script>

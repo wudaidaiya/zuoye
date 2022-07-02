@@ -1,72 +1,105 @@
 <template>
-  <div>
-    <p>请选择你要购买的书籍</p>
-    <ul>
-      <li v-for="(item,index) in arr" :key='index'>
-        <span>{{ item.name}}</span>
-        <button @click="buy(index)">买书</button>
-      </li>
-    </ul>
-    <table border="1" width="500" cellspacing="0">
-      <tr>
-        <th>序号</th>
-        <th>书名</th>
-        <th>单价</th>
-        <th>数量</th>
-        <th>合计</th>
-      </tr>
-        <tr v-for="(item,index) in arr" :key='index'>
-        <th>{{index+1}}</th>
-        <th>{{item.name}}</th>
-        <th>{{item.price}}</th>
-        <th>{{item.count}}</th>
-        <th>{{item.price*item.count}}</th>
-      </tr>
-    </table>
-    <p>总价格为:{{allPrice}} </p>
+  <div id="app">
+    <div>
+      <span>姓名:</span>
+      <input type="text" v-model="name"/>
+    </div>
+    <div>
+      <span>年龄:</span>
+      <input type="number" v-model="age"/>
+    </div>
+    <div>
+      <span>性别:</span>
+      <select  v-model="sex">
+        <option value="男">男</option>
+        <option value="女">女</option>
+      </select>
+    </div>
+    <div>
+      <button @click="addFn(flag,arr)">添加/修改</button>
+    </div>
+    <div>
+      <table
+        border="1"
+        cellpadding="10"
+        cellspacing="0"
+      >
+        <tr>
+          <th>序号</th>
+          <th>姓名</th>
+          <th>年龄</th>
+          <th>性别</th>
+          <th>操作</th>
+        </tr>
+        <tr v-for="(obj,index) in arr" :key='index'>
+          <td>{{index+1}}</td>
+          <td>{{obj.name}}</td>
+          <td>{{obj.age}}</td>
+          <td>{{obj.sex}}</td>
+          <td>
+            <button @click="del(index)">删除</button>
+            <button @click='editor(obj,index)'>编辑</button>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
-
 <script>
 export default {
-  data() {
-    return {
-      arr: [
-        {
-          name: "水浒传",
-          price: 107,
-          count: 0,
-        },
-        {
-          name: "西游记",
-          price: 192,
-          count: 0,
-        },
-        {
-          name: "三国演义",
-          price: 219,
-          count: 0,
-        },
-        {
-          name: "红楼梦",
-          price: 178,
-          count: 0,
-        },
-      ],
-    };
-  },
-   methods: {
-    buy(index) {
-      this.arr[index].count++;
+    data () {
+        return {
+            arr:[
+                 {id: 1, name: "Tom", age: 19, sex: "男"},
+            ],
+            name:'',
+            age:0,
+            sex:'',
+            flag:false,
+            id:0
+        }
     },
-  },
-  computed: {
-    allPrice() {
-      // 数组里放的是对象, 而对象是复杂类型, 引用关系, 值改变会触发计算属性重新执行
-      return this.arr.reduce((sum, obj) => {
-        return (sum += obj.price * obj.count);
-      }, 0);
-    },
-  },
-};
+    methods: {
+        addFn(flag,array){
+            if(this.name===''||this.age<=0||this.sex==''){
+                alert('请输入正确的内容');
+                return false;
+            }
+            console.log(array);
+            if(flag==true){
+                array[this.id].name=this.name,
+                array[this.id].age=this.age,
+                array[this.id].sex=this.sex,
+                this.flag=false
+            }else{
+                this.arr.push({
+                name:this.name,
+                age:this.age,
+                sex:this.sex
+            })
+            }
+            this.name='',
+            this.age=0,
+            this.sex=''
+        },
+        del(index){
+            this.arr.splice(index,1)
+        },
+        editor(obj,index){
+            this.name=obj.name,
+            this.age=obj.age,
+            this.sex=obj.sex,
+            this.flag=true
+            this.id=index
+        }
+    }
+}
 </script>
+
+<style scoped>
+tr,
+th,
+td {
+  border: 1px solid rgb(20, 20, 20);
+}
+</style>

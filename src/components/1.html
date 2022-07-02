@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <!-- 1.请补全JavaScript代码，要求实现对象参数的深拷贝并返回拷贝之后的新对象 -->
+    <script type="text/javascript">
+        function objToMap(object) {
+            let map = new Map()
+            for (const key in object) {
+                if (object.hasOwnProperty(key)) {
+                    map.set(key, object[key])
+                }
+            }
+            return map
+        }
+        var testObj = {
+            'name': 'currName',
+            'nums': [1, [2, 3]],
+            'objs': {
+                'innerObj': 'content'
+            }
+        }
+        let map = objToMap(testObj)
+        map.set('name', 'changedName')
+        console.log(testObj) // { name: 'currName',
+        //   nums: [ 1, [ 2, 3 ] ],
+        //   objs: { innerObj: 'content' } }
+        console.log(map) // Map {
+        // 'name' => 'changedName',
+        // 'nums' => [ 1, [ 2, 3 ] ],
+        // 'objs' => { innerObj: 'content' } }
+    </script>
+</body>
+
+</html>
