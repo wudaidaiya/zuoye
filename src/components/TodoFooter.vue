@@ -35,7 +35,11 @@
 
 <script>
 export default {
+
+  
   props: ["count"],
+
+
   data() {
     return {
       isSel: "all",
