@@ -1,19 +1,31 @@
-import Vue from 'vue'
-import App from './App.vue'
+import Vue from "vue";
+import App from "./App.vue";
 
-Vue.config.productionTip = false
-import "bootstrap/dist/css/bootstrap.css"
-import "./assets/fonts/iconfont.css"
-import axios from 'axios';
-axios.defaults.baseURL ='https://www.escook.cn';
-Vue.prototype.$axios = axios;
-Vue.directive('focus',{
-  inserted(el){
-    el.focus()
+
+import Find from '@/views/Find.vue'
+import My from '@/views/My.vue'
+import Part from '@/views/Part.vue'
+Vue.config.productionTip = false;
+import VueRouter from 'vue-router'
+Vue.use(VueRouter)
+const routes = [
+  {
+    path: "/find",
+    component: Find
+  },
+  {
+    path: "/my",
+    component: My
+  },
+  {
+    path: "/part",
+    component: Part
   }
+]
+const router = new VueRouter({
+  routes
 })
-
-
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+const vm = new Vue({
+  render: (h) => h(App),
+  router
+}).$mount("#app");
