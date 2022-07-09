@@ -9,6 +9,11 @@ import NotFound from '@/views/NotFound'
 import Ranking from '@/views/Second/Ranking.vue'
 import Recommend from '@/views/Second/Recommend.vue'
 import SongList from '@/views/Second/SongList.vue'
+import Myyi from '@/views/Second/MyMy/Myyi'
+import Myyi1 from '@/views/Second/MyMy/Myyi1'
+import Myyi2 from '@/views/Second/MyMy/Myyi2'
+
+
 Vue.config.productionTip = false;
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
@@ -29,7 +34,21 @@ const routes = [
     children: [
       {
         path: "recommend",
-        component: Recommend
+        component: Recommend,
+        children:[
+          {
+            path:'myyi',
+            component:Myyi,
+          },
+          {
+            path:'myyi1',
+            component:Myyi1,
+          },
+          {
+            path:'myyi2',
+            component:Myyi2,
+          }
+        ]
       },
       {
         path: "ranking",
