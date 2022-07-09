@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="footer_wrap">
-      <span @click="btn('/find', 'Find')">发现音乐</span>
-      <span @click="btn('/my', 'My')">我的音乐</span>
-      <!-- <span @click="btn('/part', 'Part')">朋友</span> -->
+      <span @click="btn('/find')">发现音乐</span>
+      <span @click="btn('/my')">我的音乐</span>
+      <span @click="btn('/part')">朋友</span>
       <!-- <router-link to="/part?name=小传">朋友-小传</router-link> -->
-      <router-link to="/part/123">朋友-小智</router-link>
+      <!-- <router-link to="/part/123">朋友-小智</router-link> -->
       <!-- <router-link to="/part/test/11">朋友</router-link> -->
     </div>
     <!-- http://localhost:8080/my?id=1 -->
@@ -24,8 +24,8 @@ export default {
   methods: {
     btn(targetPath,targetName) {
       this.$router.push({
-        // path: targetPath,
-        path:targetName,
+        path: targetPath,
+        // path:targetName,
       });
     },
   },

@@ -4,7 +4,8 @@
     <p>发现精彩</p>
     <p>寻找伙伴</p>
     <p>加入我们</p>
-    <p>人名:{{$route.params.id}}</p>
+    <p>人名:</p>
+    <!-- {{$route.params.id}} -->
   </div>
 </template>
 

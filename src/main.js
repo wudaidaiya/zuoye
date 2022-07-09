@@ -24,7 +24,7 @@ const routes = [
   },
   {
     path: "/find",
-    name: "Find",
+    // name: "Find",
     component: Find,
     children: [
       {
@@ -43,12 +43,12 @@ const routes = [
 },
 {
     path: "/my",
-    name: "My",
+    // name: "My",
     component: My
 },
 {
-    path: "/part/:id",
-    name: "Part",
+    path: "/part",
+    // name: "Part",
     component: Part
 },
   {
@@ -56,10 +56,22 @@ const routes = [
     component: NotFound
   }
 ]
+
 const router = new VueRouter({
   routes
+})
+const isLogin = false; // 登录状态(未登录)
+router.beforeEach((to, from, next) => {
+  if (to.path === "/my" && isLogin === false) {
+    alert("请登录")
+    // next(false) // 阻止路由跳转
+    console.log('to',to,'from',from,next);
+  } else {
+    next() // 正常放行
+  }
 })
 const vm = new Vue({
   render: (h) => h(App),
   router
 }).$mount("#app");
+console.log(router);
