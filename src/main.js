@@ -6,9 +6,16 @@ import Find from '@/views/Find.vue'
 import My from '@/views/My.vue'
 import Part from '@/views/Part.vue'
 import NotFound from '@/views/NotFound'
+import Ranking from '@/views/Second/Ranking.vue'
+import Recommend from '@/views/Second/Recommend.vue'
+import SongList from '@/views/Second/SongList.vue'
 Vue.config.productionTip = false;
 import VueRouter from 'vue-router'
 Vue.use(VueRouter)
+let routerPush = VueRouter.prototype.push;
+VueRouter.prototype.push = function push(location) {
+  return routerPush.call(this, location).catch(err => err)
+}
 const routes = [
   {
     path:'/',//默认hash值路径
@@ -17,21 +24,33 @@ const routes = [
   },
   {
     path: "/find",
-    component: Find
-  },
-  {
+    name: "Find",
+    component: Find,
+    children: [
+      {
+        path: "recommend",
+        component: Recommend
+      },
+      {
+        path: "ranking",
+        component: Ranking
+      },
+      {
+        path: "songlist",
+        component: SongList
+      }
+    ]
+},
+{
     path: "/my",
+    name: "My",
     component: My
-  },
-  {
-    path: "/part",
+},
+{
+    path: "/part/:id",
+    name: "Part",
     component: Part
-  },
-  {
-    path: "/part/:username",
-    component: Part
-  },
-  
+},
   {
     path: "*",
     component: NotFound
