@@ -17,7 +17,7 @@ export default {
     playFn() {
       console.log(this.id);
       this.$router.push({
-        path: "/paly",
+        path: "/play",
         query: {
           id: this.id,
         },
