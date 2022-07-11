@@ -9,33 +9,34 @@
       </van-grid-item>
     </van-grid>
 
-    <van-cell class="title" title="最佳匹配" />
-    <van-cell
-      :label="`${item.song.artists[0].name}-${item.name}`"
-      :title="item.name"
+    <van-cell class="title" title="最新音乐" />
+    <SongItem
       v-for="item in newList"
       :key="item.id"
+      :name="item.name"
+      :author="item.song.artists[0].name"
+      :id="item.id"
+      >{{ item }}</SongItem
     >
-      <template>
-        <van-icon color="#000" name="play-circle-o" size="28" />
-      </template>
-    </van-cell>
   </div>
 </template>
 
 <script>
 import { getRecommendListApi, getNewsongListApi } from "@/apis";
+import SongItem from "@/components/SongItem.vue";
 export default {
   data() {
     return {
       list: [],
-      newList: [],
+      newList: [], 
     };
   },
-  mounted() {
+
+  created() {
     this.getList();
     this.getNewsongLis();
   },
+  mounted() {},
   methods: {
     async getList() {
       try {
@@ -43,7 +44,7 @@ export default {
           limit: 6,
         });
         this.list = res.data.result;
-        console.log(res.data.result);
+        // console.log(res.data.result);
       } catch (e) {
         console.log("e", e);
       }
@@ -52,11 +53,14 @@ export default {
       try {
         const res = await getNewsongListApi();
         this.newList = res.data.result;
-        // console.log(res.data.result);
+        console.log(res.data.result);
       } catch (e) {
         console.log("e", e);
       }
     },
+  },
+  components: {
+    SongItem,
   },
 };
 </script>
@@ -81,11 +85,11 @@ export default {
   /deep/.van-grid-item__content {
     padding: 10px 0px;
   }
-.van-icon-play-circle-o{
-  padding-top: 9px;
-}
-.van-cell{
-white-space: pre;
-}
+  .van-icon-play-circle-o {
+    padding-top: 9px;
+  }
+  .van-cell {
+    white-space: pre;
+  }
 }
 </style>

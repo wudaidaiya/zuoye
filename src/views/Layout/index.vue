@@ -1,7 +1,10 @@
 <template>
   <div>
-    <van-nav-bar :title="$route.meta.title" />
+    <van-nav-bar :title="$route.meta.title"
+    fixed />
+    <div class="main">
     <router-view></router-view>
+    </div>
     <van-tabbar route>
       <van-tabbar-item to="/layout/home" icon="home-o">首页</van-tabbar-item>
       <van-tabbar-item to="/layout/search" icon="search">搜索</van-tabbar-item>
@@ -30,4 +33,9 @@ export default {
 };
 </script>
 
-<style scoped></style>
+<style scoped>
+.main{
+  margin-top: 46px;
+  margin-bottom: 50px;
+}
+</style>

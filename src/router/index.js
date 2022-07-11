@@ -1,38 +1,47 @@
-import Vue from 'vue';
-import VueRouter from 'vue-router';
-import Layout from '@/views/Layout'
-import Home from '@/views/Home'
-import Search from '@/views/Search'
+// 路由-相关模块
+import Vue from "vue";
+import VueRouter from "vue-router";
+import Layout from "@/views/Layout";
+import Home from "@/views/Home";
+import Search from "@/views/Search";
+import Play from "@/views/Play/index.vue";
 
 Vue.use(VueRouter);
-const routes =[
-    {
-        path: "/", // 默认hash值路径
-        redirect: "/layout/home" // 重定向到/find
-        // 浏览器url中#后的路径被改变成/find-重新匹配数组规则
+const routes = [
+  {
+    path: "/",
+    redirect: "/layout",
+  },
+  {
+    path: "/layout",
+    component: Layout,
+    redirect: "/layout/home",
+    children: [
+      {
+        path: "home",
+        component: Home,
+        meta: {
+          // meta保存路由对象额外信息的
+          title: "首页",
+        },
       },
-    {
-        path:'/layout',
-        component: Layout,
-        children: [
-            {
-                path:'/layout/home',
-                component: Home,
-                meta:{
-                    title:'首页'
-                }
-            },
-            {
-                path:'/layout/search',
-                component: Search,
-                meta:{
-                    title:'搜索'
-                }
-            }
-        ]
-    },
-]
+      {
+        path: "search",
+        component: Search,
+        meta: {
+          title: "搜索",
+        },
+      },
+    ],
+  },
+  {
+    path: "/play",
+    component: Play,
+  },
+];
+
 const router = new VueRouter({
-    routes,
-})
+  routes,
+});
+
 export default router;
